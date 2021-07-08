@@ -12,7 +12,7 @@
 c      open(77, file = 'coord0.txt', status = 'new')
 
       
-      lr10=nxyphi*4     
+      lr10=nxyphi*6     
       open(10,file='kinmat.mat',form='unformatted',
      >     access='direct',recl=lr10,status='old')
 
