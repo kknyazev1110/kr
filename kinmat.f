@@ -53,8 +53,13 @@
       do i=0,nx+1
         call rad(Rm,Rb,x(i),res)
         r(i)=res
-c       write(*,*) x(i), r(i)
+        call f(r(i),Rb,R0,pi,res)
+        res1=res
+c        write(*,*)res1
+       write(*,*) x(i), r(i)
       end do
+
+
 
       allocate(a(0:ny+1,0:m))
       do i=1,ny
@@ -234,7 +239,7 @@ c      write(*,*) cprop(2,2), cprop(10,20),cprop(20,10)
       write(*,*)'2nd zgemm'
       call zgemm('n','c',nxy,nxy,nxy,calpha,cprop,nxy,
      & cprop,nxy,cbeta,cp,nxy)
-      write(*,*) cp(2,2), cp(10,20)
+      write(*,*) cp(2,2),cp(10,10), cp(10,20)
 
 c      do i=1,nxy
 c       do j=1, nxy
@@ -318,7 +323,16 @@ c---------------------------------------------------------
       end if
       return
       end
-
+c---------------------------------------------------------
+      subroutine f(x,Rb,R0,pi,c)
+      implicit real*8(a-h,o-z),integer*4(i-n)
+      if (x<R0) then
+      c=1
+      else
+      c=(dcos(((x-R0)/(Rb-R0))*pi/2.d0))**(0.25d0)
+      end if
+      return
+      end
 
 
 
